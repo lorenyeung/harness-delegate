@@ -1,6 +1,7 @@
 inputSet:
   identifier: "envlocal"
   name: "envlocal"
+  tags: {}
   orgIdentifier: "default"
   projectIdentifier: "technical_exercise"
   pipeline:
