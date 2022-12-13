@@ -1,0 +1,30 @@
+inputSet:
+  identifier: "envdev"
+  name: "envdev"
+  orgIdentifier: "default"
+  projectIdentifier: "technical_exercise"
+  pipeline:
+    identifier: "CD"
+    stages:
+    - stage:
+        identifier: "deploy"
+        type: "Deployment"
+        spec:
+          service:
+            serviceInputs:
+              serviceDefinition:
+                type: "Kubernetes"
+                spec:
+                  manifests:
+                  - manifest:
+                      identifier: "nginx_manifest"
+                      type: "HelmChart"
+                      spec:
+                        chartVersion: "13.2.17"
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: "bitnami-repo"
+          environment:
+            environmentRef: "dev"
+            infrastructureDefinitions:
+            - identifier: "gcpinfra"
