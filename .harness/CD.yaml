@@ -18,12 +18,6 @@ pipeline:
             serviceDefinition:
               type: "Kubernetes"
               spec:
-                manifests:
-                - manifest:
-                    identifier: "nginx"
-                    type: "HelmChart"
-                    spec:
-                      chartVersion: "<+input>"
                 artifacts:
                   primary:
                     primaryArtifactRef: "<+input>"
