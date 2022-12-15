@@ -37,8 +37,22 @@ pipeline:
                     method: GET
                     headers: []
                     outputVariables: []
-                    url: https://<+stage.spec.serviceConfig["name"]>
+                    url: https://<+serviceVariables.login>
                   timeout: 1m 40s
+              - step:
+                  type: ShellScript
+                  name: Shell Script
+                  identifier: ShellScript
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo <+stage.spec.serviceConfig["name"]> <+stage.spec.serviceConfig>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
               - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
