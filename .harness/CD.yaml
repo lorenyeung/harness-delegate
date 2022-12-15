@@ -42,6 +42,7 @@ pipeline:
                         script: |-
                           echo <+serviceVariables.path>
                           #echo <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
+                          az login <+serviceVariables.login> -u <serviceVariables.login> -p <+secrets.getValue("azureacrlorennonprod")>
                           az acr manifest list-metadata <+serviceVariables.path>
                     environmentVariables: []
                     outputVariables: []
