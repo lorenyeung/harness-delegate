@@ -42,6 +42,12 @@ pipeline:
                       - name: tags
                         value: <+json.object(httpResponseBody).tags>
                         type: String
+                      - name: tags2
+                        type: String
+                        value: <+json.select("tags.name", httpResponseBody)>
+                      - name: tags3
+                        type: String
+                        value: <+json.array(httpResponseBody).tags.name>
                     url: https://<+serviceVariables.login>.<+serviceVariables.azure>/acr/v1/<+serviceVariables.base>/<+serviceVariables.chart>/_tags
                   timeout: 10s
               - step:
