@@ -6,29 +6,6 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: get version
-        identifier: get_version
-        description: ""
-        type: Custom
-        spec:
-          execution:
-            steps:
-              - step:
-                  type: ShellScript
-                  name: Shell Script
-                  identifier: ShellScript
-                  spec:
-                    shell: Bash
-                    onDelegate: true
-                    source:
-                      type: Inline
-                      spec:
-                        script: az
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 10m
-        tags: {}
-    - stage:
         name: deploy
         identifier: deploy
         description: ""
@@ -52,6 +29,22 @@ pipeline:
               - identifier: gcpinfra
           execution:
             steps:
+              - step:
+                  type: ShellScript
+                  name: Shell Script
+                  identifier: ShellScript
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
+                          az acr manifest list-metadata <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
               - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
