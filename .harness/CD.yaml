@@ -40,7 +40,7 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          echo <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
+                          echo <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName> <+service.identifier>
                           az acr manifest list-metadata <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
                     environmentVariables: []
                     outputVariables: []
