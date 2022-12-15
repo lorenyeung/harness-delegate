@@ -30,20 +30,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: ShellScript
-                  name: Shell Script
-                  identifier: ShellScript
-                  spec:
-                    shell: Bash
-                    onDelegate: true
-                    source:
-                      type: Inline
-                      spec:
-                        script: echo <+stage.spec.serviceConfig["name"]> <+stage.spec.serviceConfig>
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 10m
-              - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
                   type: K8sRollingDeploy
@@ -61,6 +47,18 @@ pipeline:
                       spec:
                         deleteNamespace: false
                   timeout: 10m
+              - step:
+                  type: Http
+                  name: HTTP
+                  identifier: HTTP
+                  spec:
+                    method: GET
+                    headers:
+                      - key: Authorization
+                        value: Basic <+secrets.getValue("azureacrbase64")>
+                    outputVariables: []
+                    url: https://<+serviceVariables.login>.<+serviceVariables.azure>/acr/v1/<+serviceVariables.base>/<+serviceVariables.chart>/_tags
+                  timeout: 10s
             rollbackSteps:
               - step:
                   name: Rollback Rollout Deployment
