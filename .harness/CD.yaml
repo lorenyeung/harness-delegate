@@ -44,7 +44,7 @@ pipeline:
                         type: String
                       - name: tags2
                         type: String
-                        value: <+json.select("name",<+json.object(httpResponseBody).tags>)>
+                        value: <+json.select("name",+<+json.object(httpResponseBody).tags>+)>
                       - name: tags4
                         value: test
                         type: String
