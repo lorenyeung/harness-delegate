@@ -38,7 +38,10 @@ pipeline:
                     headers:
                       - key: Authorization
                         value: Basic <+secrets.getValue("azureacrbase64")>
-                    outputVariables: []
+                    outputVariables:
+                      - name: tags
+                        value: <+json.object(httpResponseBody).tags>
+                        type: String
                     url: https://<+serviceVariables.login>.<+serviceVariables.azure>/acr/v1/<+serviceVariables.base>/<+serviceVariables.chart>/_tags
                   timeout: 10s
               - step:
