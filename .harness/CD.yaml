@@ -40,7 +40,7 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          echo <+serviceVariables.path>
+                          echo <+serviceVariables.path> <serviceVariables.login>
                           #echo <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
                           az login <+serviceVariables.login> -u <serviceVariables.login> -p <+secrets.getValue("azureacrlorennonprod")>
                           az acr manifest list-metadata <+serviceVariables.path>
