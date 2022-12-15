@@ -48,6 +48,9 @@ pipeline:
                       - name: tags3
                         type: String
                         value: <+json.array(httpResponseBody).tags>
+                      - name: tags4
+                        value: test
+                        type: String
                     url: https://<+serviceVariables.login>.<+serviceVariables.azure>/acr/v1/<+serviceVariables.base>/<+serviceVariables.chart>/_tags
                   timeout: 10s
               - step:
