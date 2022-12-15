@@ -23,10 +23,11 @@ pipeline:
                       primaryArtifactRef: <+input>
                       sources: <+input>
           environment:
-            environmentRef: dev
+            environmentRef: <+input>
             deployToAll: false
-            infrastructureDefinitions:
-              - identifier: gcpinfra
+            environmentInputs: <+input>
+            serviceOverrideInputs: <+input>
+            infrastructureDefinitions: <+input>
           execution:
             steps:
               - step:
