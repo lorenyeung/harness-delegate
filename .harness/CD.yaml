@@ -41,8 +41,8 @@ pipeline:
                       spec:
                         script: |-
                           echo <+serviceVariables.path>
-                          echo <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
-                          az acr manifest list-metadata <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
+                          #echo <+manifests.nginx.store.config.spec.connectorRef>/<+manifests.nginx.store.basePath>/<+manifests.nginx.chartName>
+                          az acr manifest list-metadata <+serviceVariables.path>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
