@@ -1,0 +1,29 @@
+inputSet:
+  identifier: "nonprod"
+  pipeline:
+    identifier: "CD"
+    stages:
+    - stage:
+        identifier: "deploy"
+        type: "Deployment"
+        spec:
+          service:
+            serviceInputs:
+              serviceDefinition:
+                type: "Kubernetes"
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: "test"
+                      sources:
+                      - identifier: "test"
+                        type: "Acr"
+                        spec:
+                          tag: ""
+                          registry: "lorennonprod"
+          environment:
+            environmentRef: "dev"
+            infrastructureDefinitions: []
+  name: "nonprod"
+  orgIdentifier: "default"
+  projectIdentifier: "technical_exercise"
