@@ -39,6 +39,9 @@ pipeline:
                     outputVariables: []
                     url: https://<+serviceVariables.login>
                   timeout: 1m 40s
+                  when:
+                    stageStatus: Failure
+                  failureStrategies: []
               - step:
                   type: ShellScript
                   name: Shell Script
