@@ -1,0 +1,57 @@
+inputSet:
+  identifier: "dev"
+  pipeline:
+    identifier: "CD"
+    stages:
+    - stage:
+        identifier: "deploy"
+        type: "Deployment"
+        spec:
+          service:
+            serviceInputs:
+              serviceDefinition:
+                type: "Kubernetes"
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: "test"
+                      sources:
+                      - identifier: "test"
+                        type: "Acr"
+                        spec:
+                          tag: ""
+          environment:
+            environmentRef: ""
+            environmentInputs: ""
+            serviceOverrideInputs: ""
+            infrastructureDefinitions: ""
+    - stage:
+        identifier: "deploy_chart_list"
+        type: "Deployment"
+        spec:
+          service:
+            serviceInputs:
+              serviceDefinition:
+                type: "Kubernetes"
+                spec:
+                  manifests:
+                  - manifest:
+                      identifier: "nginx"
+                      type: "HelmChart"
+                      spec:
+                        chartVersion: ""
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: "acr"
+                      sources:
+                      - identifier: "acr"
+                        type: "Acr"
+                        spec:
+                          tag: ""
+                          registry: "lorennonprod"
+          environment:
+            environmentRef: "dev"
+            infrastructureDefinitions: []
+  name: "dev"
+  orgIdentifier: "default"
+  projectIdentifier: "technical_exercise"
