@@ -37,7 +37,7 @@ pipeline:
                     method: GET
                     headers: []
                     outputVariables: []
-                    url: <+stage.spec.serviceConfig>
+                    url: <+stage.spec.serviceConfig["name"]>
                   timeout: 10s
               - step:
                   name: Rollout Deployment
