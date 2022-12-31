@@ -133,6 +133,11 @@ pipeline:
                     type: "HelmChart"
                     spec:
                       chartVersion: "<+input>"
+                - manifest:
+                    identifier: "HTTP helm"
+                    type: "HelmChart"
+                    spec:
+                      chartVersion: "<+input>"
                 artifacts:
                   primary:
                     primaryArtifactRef: "<+input>"
