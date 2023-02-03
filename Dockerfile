@@ -1,6 +1,6 @@
 # ARG CODE_VERSION=<+pipeline.variables.immutabletag>
 ARG tag
-FROM harness/delegate-immutable:${tag}
+FROM harness/delegate:${tag}
 
 ENV key=value
 
