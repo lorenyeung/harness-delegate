@@ -1,11 +1,20 @@
 # ARG CODE_VERSION=<+pipeline.variables.immutabletag>
 ARG tag
 FROM harness/delegate:${tag}
-
+USER root
 ENV key=value
 
-RUN microdnf install unzip
-RUN curl -O -L  https://releases.hashicorp.com/terraform/1.3.1/terraform_1.3.1_linux_amd64.zip
-RUN unzip terraform_1.3.1_linux_amd64.zip
-RUN mv ./terraform /usr/bin/
+RUN microdnf update && microdnf install unzip yum-utils
+# specific version of terraform
+#RUN curl -O -L  https://releases.hashicorp.com/terraform/1.3.1/terraform_1.3.1_linux_amd64.zip
+#RUN unzip terraform_1.3.1_linux_amd64.zip
+#RUN mv ./terraform /usr/bin/
+
+RUN yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
+  && microdnf install -y terraform
+
+RUN mkdir /opt/harness-delegate/tools && cd /opt/harness-delegate/tools \
+  && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x kubectl
+
+ENV PATH=/opt/harness-delegate/tools/:$PATH
 RUN terraform --version
