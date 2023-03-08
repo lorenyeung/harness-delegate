@@ -4,8 +4,8 @@ FROM harness/delegate:${tag}
 
 ENV key=value
 
-microdnf install unzip
-curl -O -L  https://releases.hashicorp.com/terraform/1.3.1/terraform_1.3.1_linux_amd64.zip
-unzip terraform_1.3.1_linux_amd64.zip
-mv ./terraform /usr/bin/
-terraform --version
+RUN microdnf install unzip
+RUN curl -O -L  https://releases.hashicorp.com/terraform/1.3.1/terraform_1.3.1_linux_amd64.zip
+RUN unzip terraform_1.3.1_linux_amd64.zip
+RUN mv ./terraform /usr/bin/
+RUN terraform --version
