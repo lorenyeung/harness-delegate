@@ -10,11 +10,17 @@ RUN microdnf update && microdnf install unzip yum-utils
 #RUN unzip terraform_1.3.1_linux_amd64.zip
 #RUN mv ./terraform /usr/bin/
 
+# add terraform
 RUN yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
   && microdnf install -y terraform
 
+# add kubectl
 RUN mkdir /opt/harness-delegate/tools && cd /opt/harness-delegate/tools \
   && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x kubectl
+
+# add gh cli
+RUN yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo \
+  && microdnf install -y gh 
 
 ENV PATH=/opt/harness-delegate/tools/:$PATH
 RUN terraform --version
