@@ -10,6 +10,9 @@ RUN microdnf update && microdnf install unzip yum-utils
 #RUN unzip terraform_1.3.1_linux_amd64.zip
 #RUN mv ./terraform /usr/bin/
 
+#specific version of helm
+RUN curl -OL https://get.helm.sh/helm-v3.12.0-linux-arm64.tar.gz && tar -zxvf helm-v3.12.0-linux-arm64.tar.gz && mv linux-arm64/helm /opt/harness-delegate/tools/helm
+
 # add terraform
 RUN yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
   && microdnf install -y terraform
