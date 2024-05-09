@@ -31,11 +31,12 @@ RUN yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.rep
 RUN wget -O /etc/yum.repos.d/cloudfoundry-cli.repo https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo
 RUN echo y | yum install cf7-cli -y
 # add cf plugins
-RUN cf install-plugin -r CF-Community app-autoscaler-plugin -f \ 
+ADD autoscaler-for-pcf-cliplugin-linux64-binary-2.0.295 .
+ARG CF_PLUGIN_HOME=/root
+RUN cf install-plugin -f autoscaler-for-pcf-cliplugin-linux64-binary-2.0.295 \ 
 && cf install-plugin -f -r CF-Community "Create-Service-Push" \
 && cf --version \
 && cf plugins
-RUN export CF_PLUGIN_HOME=/opt/harness-delegate/.cf/plugins
 
 # install gcloud CLI
 RUN curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz \
